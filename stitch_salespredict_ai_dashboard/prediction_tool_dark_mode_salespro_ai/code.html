@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SalesPro AI - Prediction Tool</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .prediction-fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glass-panel {
+            background: rgba(18, 28, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(114, 119, 132, 0.2);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-container": "#83ffc6",
+                        "outline-variant": "#414753",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-secondary-container": "#57dffe",
+                        "surface-container-high": "#27313f",
+                        "outline": "#8c919e",
+                        "secondary-fixed": "#acedff",
+                        "surface": "#121c2a",
+                        "primary-container": "#004e9f",
+                        "inverse-surface": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "error-container": "#93000a",
+                        "secondary-container": "#004e5c",
+                        "surface-container": "#1d2635",
+                        "on-surface-variant": "#c1c6d5",
+                        "on-primary-container": "#d7e3ff",
+                        "surface-container-highest": "#323c4d",
+                        "on-background": "#f8f9ff",
+                        "surface-tint": "#aac7ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#aac7ff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#0a121e",
+                        "surface-container-low": "#121c2a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#005236",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-surface": "#f8f9ff",
+                        "tertiary": "#6ffbbe",
+                        "primary-fixed-dim": "#aac7ff",
+                        "secondary": "#4cd7f6",
+                        "inverse-primary": "#005cba",
+                        "surface-variant": "#414753",
+                        "primary-fixed": "#d7e3ff",
+                        "on-tertiary-fixed-variant": "#4edea3",
+                        "surface-dim": "#121c2a",
+                        "on-primary-fixed": "#001b3e",
+                        "error": "#ffb4ab",
+                        "primary": "#aac7ff",
+                        "surface-bright": "#374254",
+                        "background": "#0a121e",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "xl": "32px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "base": "4px",
+                        "xxl": "48px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-surface-container-low border-r border-outline-variant py-lg px-md fixed left-0 top-0 z-50">
+<div class="mb-xxl px-sm">
+<h1 class="text-headline-md font-headline-md text-primary">SalesPro AI</h1>
+<p class="text-label-sm text-on-surface-variant">Enterprise Analytics</p>
+</div>
+<nav class="flex-1 space-y-base">
+<a class="flex items-center gap-md px-sm py-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- ACTIVE TAB: Predictions -->
+<a class="flex items-center gap-md px-sm py-xs bg-primary-container text-on-primary-container rounded-lg font-bold transition-all translate-x-1 duration-200 font-label-md" href="#">
+<span class="material-symbols-outlined">online_prediction</span>
+<span>Predictions</span>
+</a>
+<a class="flex items-center gap-md px-sm py-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-md px-sm py-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-lg">
+<a class="flex items-center gap-md px-sm py-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 min-h-screen">
+<!-- Top Navigation (Mobile) -->
+<header class="md:hidden flex items-center justify-between p-md bg-surface border-b border-outline-variant sticky top-0 z-40">
+<h2 class="text-headline-md text-primary font-headline-md">SalesPro AI</h2>
+<button class="p-xs text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Page Canvas -->
+<div class="max-w-7xl mx-auto p-margin-mobile md:p-margin-desktop">
+<header class="mb-xl">
+<h2 class="text-headline-xl font-headline-xl mb-xs text-on-surface">Revenue Prediction Tool</h2>
+<p class="text-body-md text-on-surface-variant max-w-2xl">
+                Input your planned advertising spend across primary channels to forecast potential sales volume using our enterprise-grade predictive models.
+            </p>
+</header>
+<!-- Tool Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-gutter items-start">
+<!-- Left Column: Form -->
+<section class="lg:col-span-4 space-y-lg">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">Budget Allocation</h3>
+</div>
+<form class="space-y-md" id="predictionForm">
+<div class="space-y-xs">
+<label class="text-label-md text-on-surface-variant flex justify-between" for="tvBudget">
+                                TV Budget
+                                <span class="text-primary font-bold">$ (k)</span>
+</label>
+<div class="relative">
+<input class="w-full px-md py-sm bg-surface-container-low border border-outline-variant text-on-surface rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="tvBudget" placeholder="230.1" type="number"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline text-sm">tv</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md text-on-surface-variant flex justify-between" for="radioBudget">
+                                Radio Budget
+                                <span class="text-primary font-bold">$ (k)</span>
+</label>
+<div class="relative">
+<input class="w-full px-md py-sm bg-surface-container-low border border-outline-variant text-on-surface rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="radioBudget" placeholder="37.8" type="number"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline text-sm">radio</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md text-on-surface-variant flex justify-between" for="newspaperBudget">
+                                Newspaper Budget
+                                <span class="text-primary font-bold">$ (k)</span>
+</label>
+<div class="relative">
+<input class="w-full px-md py-sm bg-surface-container-low border border-outline-variant text-on-surface rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="newspaperBudget" placeholder="69.2" type="number"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline text-sm">newspaper</span>
+</div>
+</div>
+<button class="w-full py-md bg-primary text-on-primary-fixed font-bold rounded-lg flex items-center justify-center gap-sm hover:brightness-110 transition-all shadow-md group" onclick="runPrediction()" type="button">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">auto_awesome</span>
+                            Run Prediction
+                        </button>
+</form>
+</div>
+<!-- AI Insights Mini Panel -->
+<div class="border-l-4 border-tertiary-container bg-surface-container-low p-md rounded-r-lg shadow-sm">
+<h4 class="text-label-sm font-bold text-tertiary flex items-center gap-base mb-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">lightbulb</span>
+                        AI Strategy Insight
+                    </h4>
+<p class="text-body-sm text-on-surface-variant">
+                        TV spending traditionally yields a 12% higher ROI in this sector. Consider shifting 5% of newspaper budget to Radio for optimal saturation.
+                    </p>
+</div>
+</section>
+<!-- Right Column: Results -->
+<section class="lg:col-span-6 prediction-fade-in opacity-0" id="resultsSection" style="animation-delay: 0.1s;">
+<div class="glass-panel p-xl rounded-xl relative overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute top-0 right-0 p-lg opacity-10 text-primary">
+<span class="material-symbols-outlined text-[120px]">trending_up</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-xl">
+<div>
+<span class="text-label-sm bg-tertiary-container text-on-tertiary-container px-sm py-base rounded-full inline-flex items-center gap-xs font-bold shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">verified</span>
+                                    93.55% Accuracy
+                                </span>
+</div>
+<span class="text-body-sm text-on-surface-variant">Forecast generated in 120ms</span>
+</div>
+<div class="mb-xxl text-center lg:text-left">
+<h4 class="text-label-md text-on-surface-variant mb-xs font-medium uppercase tracking-widest">Predicted Sales Volume</h4>
+<div class="flex items-baseline justify-center lg:justify-start gap-xs">
+<span class="text-headline-xl text-primary" style="font-size: 64px; line-height: 1;">$22.50</span>
+<span class="text-headline-md text-on-surface-variant font-bold">M</span>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-sm">Estimated gross revenue based on channel correlation analysis.</p>
+</div>
+<!-- Input Summary -->
+<div class="grid grid-cols-3 gap-md pt-xl border-t border-outline-variant">
+<div class="space-y-base">
+<p class="text-label-sm text-on-surface-variant uppercase">TV</p>
+<p class="text-body-lg font-bold text-on-surface">$230.1k</p>
+</div>
+<div class="space-y-base">
+<p class="text-label-sm text-on-surface-variant uppercase">Radio</p>
+<p class="text-body-lg font-bold text-on-surface">$37.8k</p>
+</div>
+<div class="space-y-base">
+<p class="text-label-sm text-on-surface-variant uppercase">News</p>
+<p class="text-body-lg font-bold text-on-surface">$69.2k</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Comparison -->
+<div class="mt-gutter grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<h5 class="text-label-md font-bold mb-md flex items-center gap-xs text-on-surface">
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+                            Share of Wallet
+                        </h5>
+<div class="h-32 flex items-end gap-md justify-between px-md">
+<div class="flex-1 bg-primary rounded-t-lg transition-all hover:scale-105" style="height: 68%;"></div>
+<div class="flex-1 bg-secondary-container rounded-t-lg transition-all hover:scale-105" style="height: 12%;"></div>
+<div class="flex-1 bg-tertiary-container rounded-t-lg transition-all hover:scale-105" style="height: 20%;"></div>
+</div>
+<div class="flex justify-between mt-sm text-label-sm text-on-surface-variant">
+<span>TV</span>
+<span>Rad</span>
+<span>Nws</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex flex-col justify-center">
+<h5 class="text-label-md font-bold mb-xs text-on-surface">Market Volatility Index</h5>
+<p class="text-headline-md text-on-surface-variant font-medium">Low Risk</p>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-md overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 25%;"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-sm">Stability in consumer media habits projected for Q3.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- FAB: Save Prediction -->
+<button class="fixed bottom-margin-desktop right-margin-desktop flex items-center gap-sm px-xl py-lg bg-primary text-on-primary-fixed rounded-full shadow-lg hover:shadow-xl hover:translate-y-[-2px] transition-all z-50 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">save</span>
+<span class="font-bold">Save Prediction</span>
+</button>
+<script>
+    function runPrediction() {
+        const results = document.getElementById('resultsSection');
+        results.classList.remove('prediction-fade-in');
+        results.classList.add('opacity-0');
+        
+        setTimeout(() => {
+            results.classList.remove('opacity-0');
+            results.classList.add('prediction-fade-in');
+            
+            const predictedSales = document.querySelector('.text-headline-xl');
+            const randomVal = (Math.random() * (25 - 18) + 18).toFixed(2);
+            predictedSales.innerText = `$${randomVal}`;
+        }, 300);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            const results = document.getElementById('resultsSection');
+            results.classList.remove('opacity-0');
+            results.classList.add('prediction-fade-in');
+        }, 400);
+    });
+</script>
+<!-- Footer -->
+<footer class="md:ml-64 bg-surface-container-low border-t border-outline-variant mt-xxl">
+<div class="flex flex-col md:flex-row justify-between items-center py-xl px-margin-desktop max-w-7xl mx-auto">
+<span class="text-body-sm text-on-surface-variant font-bold">© 2024 SalesPro AI. All rights reserved.</span>
+<div class="flex gap-lg mt-md md:mt-0">
+<a class="text-on-surface-variant hover:text-primary transition-all font-body-sm" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-body-sm" href="#">Terms</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-body-sm" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+</body></html>

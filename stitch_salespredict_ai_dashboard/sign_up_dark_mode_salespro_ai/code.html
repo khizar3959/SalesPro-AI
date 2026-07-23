@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up | SalesPro AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#121c2a",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-container": "#83ffc6",
+                        "outline-variant": "#414753",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-secondary-container": "#acedff",
+                        "surface-container-high": "#27313f",
+                        "outline": "#8b919e",
+                        "secondary-fixed": "#acedff",
+                        "surface": "#121c2a",
+                        "primary-container": "#004e9f",
+                        "inverse-surface": "#eaf1ff",
+                        "on-primary": "#ffffff",
+                        "error-container": "#93000a",
+                        "secondary-container": "#004e5c",
+                        "surface-container": "#1e2632",
+                        "on-surface-variant": "#c1c6d5",
+                        "on-primary-container": "#d7e3ff",
+                        "surface-container-highest": "#323b49",
+                        "on-background": "#e2e2e6",
+                        "surface-tint": "#aac7ff",
+                        "on-secondary": "#003640",
+                        "on-primary-fixed-variant": "#aac7ff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#0c141f",
+                        "surface-container-low": "#1a212c",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#005236",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-surface": "#e2e2e6",
+                        "tertiary": "#4edea3",
+                        "primary-fixed-dim": "#aac7ff",
+                        "secondary": "#4cd7f6",
+                        "inverse-primary": "#005cba",
+                        "surface-variant": "#414753",
+                        "primary-fixed": "#d7e3ff",
+                        "on-tertiary-fixed-variant": "#4edea3",
+                        "surface-dim": "#121c2a",
+                        "on-primary-fixed": "#001b3e",
+                        "error": "#ffb4ab",
+                        "primary": "#aac7ff",
+                        "surface-bright": "#38414e",
+                        "background": "#0c141f",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "xl": "32px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "base": "4px",
+                        "xxl": "48px",
+                        "gutter": "24px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .strength-bar { transition: width 0.3s ease, background-color 0.3s ease; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top Navigation (Reduced for Transactional Flow) -->
+<nav class="bg-surface-container-lowest border-b border-outline-variant shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto h-16">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="text-headline-md font-headline-md text-primary">SalesPro AI</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Login</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile py-xxl relative overflow-hidden">
+<!-- Decorative Ambient Background -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-20">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary-container blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-container blur-[120px] rounded-full"></div>
+</div>
+<!-- Sign Up Card -->
+<div class="w-full max-w-[450px] bg-surface-container-low border border-outline-variant rounded-xl shadow-xl p-xl z-10">
+<div class="text-center mb-lg">
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Create Your Account</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Empower your sales strategy with AI-driven insights.</p>
+</div>
+<form class="space-y-md" id="signup-form">
+<!-- Full Name -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface" for="full_name">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">person</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md outline-none text-on-surface placeholder:text-outline" id="full_name" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<!-- Email -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md outline-none text-on-surface placeholder:text-outline" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md outline-none text-on-surface placeholder:text-outline" id="password" placeholder="••••••••" type="password"/>
+</div>
+<!-- Strength Indicator -->
+<div class="pt-base">
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="strength-bar h-full w-0 bg-error" id="strength-meter"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 text-right" id="strength-text">Password too short</p>
+</div>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface" for="confirm_password">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">verified_user</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md outline-none text-on-surface placeholder:text-outline" id="confirm_password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-primary-container text-on-primary font-bold py-3 rounded-lg hover:brightness-110 active:scale-[0.98] transition-all flex justify-center items-center gap-sm mt-lg" type="submit">
+                    Create Account
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+<div class="mt-lg text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Already have an account? 
+                    <a class="text-primary font-bold hover:underline" href="#">Login</a>
+</p>
+</div>
+<!-- Social Divider -->
+<div class="relative my-xl">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center text-label-sm">
+<span class="bg-surface-container-low px-4 text-on-surface-variant font-label-sm">Or sign up with</span>
+</div>
+</div>
+<!-- Social Buttons -->
+<div class="grid grid-cols-2 gap-md">
+<button class="flex items-center justify-center gap-xs border border-outline-variant bg-surface-container-lowest py-2.5 rounded-lg hover:bg-surface-container-highest transition-colors font-label-md text-on-surface">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                    Google
+                </button>
+<button class="flex items-center justify-center gap-xs border border-outline-variant bg-surface-container-lowest py-2.5 rounded-lg hover:bg-surface-container-highest transition-colors font-label-md text-on-surface">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.412-4.041-1.412-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path>
+</svg>
+                    GitHub
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center py-xl px-margin-desktop max-w-7xl mx-auto w-full">
+<span class="font-body-sm text-body-sm text-on-surface-variant mb-md md:mb-0">© 2024 SalesPro AI. All rights reserved.</span>
+<div class="flex gap-lg">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline transition-all" href="#">About</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline transition-all" href="#">Terms</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:underline transition-all" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+<script>
+        const passwordInput = document.getElementById('password');
+        const strengthMeter = document.getElementById('strength-meter');
+        const strengthText = document.getElementById('strength-text');
+
+        passwordInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            let strength = 0;
+            
+            if (val.length > 5) strength += 25;
+            if (val.length > 8) strength += 25;
+            if (/[A-Z]/.test(val)) strength += 25;
+            if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) strength += 25;
+
+            strengthMeter.style.width = strength + '%';
+
+            if (strength === 0) {
+                strengthMeter.className = 'strength-bar h-full w-0 bg-error';
+                strengthText.innerText = 'Password too short';
+                strengthText.className = 'font-label-sm text-label-sm text-on-surface-variant mt-1 text-right';
+            } else if (strength <= 25) {
+                strengthMeter.className = 'strength-bar h-full bg-error';
+                strengthText.innerText = 'Weak';
+                strengthText.className = 'font-label-sm text-label-sm text-error mt-1 text-right';
+            } else if (strength <= 50) {
+                strengthMeter.className = 'strength-bar h-full bg-orange-400';
+                strengthText.innerText = 'Moderate';
+                strengthText.className = 'font-label-sm text-label-sm text-orange-400 mt-1 text-right';
+            } else if (strength <= 75) {
+                strengthMeter.className = 'strength-bar h-full bg-secondary';
+                strengthText.innerText = 'Strong';
+                strengthText.className = 'font-label-sm text-label-sm text-secondary mt-1 text-right';
+            } else {
+                strengthMeter.className = 'strength-bar h-full bg-tertiary';
+                strengthText.innerText = 'Secure';
+                strengthText.className = 'font-label-sm text-label-sm text-tertiary mt-1 text-right';
+            }
+        });
+
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Transactional feedback
+            const btn = e.target.querySelector('button');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Creating...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                alert('Account creation simulation complete.');
+            }, 1500);
+        });
+    </script>
+</body></html>
