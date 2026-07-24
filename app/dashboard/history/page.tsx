@@ -12,7 +12,6 @@ export default function HistoryPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [showClearConfirm, setShowClearConfirm] = useState(false)
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [stats, setStats] = useState({ total: 0, average: 0, highest: 0, lowest: 0 })
 
   useEffect(() => {
@@ -33,7 +32,6 @@ export default function HistoryPage() {
 
     setPredictions(sorted)
     setStats(getPredictionStats())
-    setLoading(false)
   }
 
   const handleDelete = (prediction: Prediction) => {
@@ -199,7 +197,7 @@ export default function HistoryPage() {
           )}
         </Card>
       ) : (
-        <Card padding="xxl" className="text-center border-2 border-dashed border-outline-variant">
+        <Card padding="lg" className="text-center border-2 border-dashed border-outline-variant">
           <span className="material-symbols-outlined text-6xl text-on-surface-variant/30 block mb-lg">
             history
           </span>

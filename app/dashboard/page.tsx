@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { getCurrentUser } from '@/lib/auth'
 import { getPredictions, getPredictionStats } from '@/lib/storage'
-import { Button, Card, CardContent, CardTitle, Badge } from '@/components'
+import { Button, Card } from '@/components'
 import type { User } from '@/lib/auth'
 import type { Prediction } from '@/lib/storage'
 
@@ -228,7 +228,7 @@ export default function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {predictions.map((pred, idx) => (
+                {predictions.map((pred) => (
                   <tr key={pred.id} className="border-b border-outline-variant hover:bg-surface-container-high transition-colors">
                     <td className="px-lg py-md text-on-surface-variant text-label-sm">
                       {new Date(pred.createdAt).toLocaleDateString()}
@@ -255,7 +255,7 @@ export default function DashboardPage() {
 
       {/* Empty State */}
       {predictions.length === 0 && (
-        <Card padding="xxl" className="text-center border-2 border-dashed border-outline-variant">
+        <Card padding="lg" className="text-center border-2 border-dashed border-outline-variant">
           <span className="material-symbols-outlined text-6xl text-on-surface-variant/30 block mb-lg">
             folder_open
           </span>

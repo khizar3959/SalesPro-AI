@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { predictSales, validateInput, getInsightMessage, formatPrediction, getModelInfo } from '@/lib/regressionModel'
 import { savePrediction } from '@/lib/storage'
-import { Button, Input, Card, CardContent, CardTitle, Alert, Badge } from '@/components'
+import { Button, Input, Card, CardTitle, Alert, Badge } from '@/components'
 
 interface PredictionResult {
   sales: number
