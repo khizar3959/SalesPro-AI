@@ -41,9 +41,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             className={`w-full px-md py-sm ${
-              icon && iconPosition === 'left' ? 'pl-lg' : ''
+              icon && iconPosition === 'left' ? 'pl-xxl' : ''
             } ${
-              icon && iconPosition === 'right' ? 'pr-lg' : ''
+              icon && iconPosition === 'right' ? 'pr-xxl' : ''
             } bg-surface-container-low border ${
               error ? 'border-error' : 'border-outline-variant'
             } rounded-lg text-on-surface placeholder-on-surface-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all ${

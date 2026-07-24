@@ -97,7 +97,7 @@ export function getModelInfo() {
 
 // Format prediction for display
 export function formatPrediction(sales: number): string {
-  return `$${sales.toFixed(2)}K`
+  return `${sales.toFixed(2)}K`
 }
 
 // Get insight message based on prediction

@@ -69,7 +69,7 @@ export default function DashboardPage() {
               <div>
                 <p className="text-label-sm text-on-surface-variant mb-sm">Your Latest Prediction</p>
                 <p className="text-headline-md font-bold text-primary">
-                  ${predictions[0]?.predictedSales.toFixed(2)}K
+                  {predictions[0]?.predictedSales.toFixed(2)}K
                 </p>
               </div>
               <span className="material-symbols-outlined text-4xl text-primary/30">trending_up</span>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
           <div className="flex items-start justify-between">
             <div className="flex-grow">
               <p className="text-label-sm text-on-surface-variant mb-md font-semibold">Average Sales</p>
-              <p className="text-4xl font-bold text-secondary">${stats.average}K</p>
+              <p className="text-4xl font-bold text-secondary">{stats.average}K</p>
             </div>
             <div className="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center flex-shrink-0">
               <span className="material-symbols-outlined text-secondary">trending_up</span>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
           <div className="flex items-start justify-between">
             <div className="flex-grow">
               <p className="text-label-sm text-on-surface-variant mb-md font-semibold">Highest Prediction</p>
-              <p className="text-4xl font-bold text-tertiary">${stats.highest}K</p>
+              <p className="text-4xl font-bold text-tertiary">{stats.highest}K</p>
             </div>
             <div className="w-12 h-12 rounded-lg bg-tertiary/20 flex items-center justify-center flex-shrink-0">
               <span className="material-symbols-outlined text-tertiary">show_chart</span>
@@ -236,7 +236,7 @@ export default function DashboardPage() {
                     <td className="px-lg py-md text-on-surface">${pred.tv}K</td>
                     <td className="px-lg py-md text-on-surface">${pred.radio}K</td>
                     <td className="px-lg py-md text-on-surface">${pred.newspaper}K</td>
-                    <td className="px-lg py-md font-bold text-primary">${pred.predictedSales.toFixed(2)}K</td>
+                    <td className="px-lg py-md font-bold text-primary">{pred.predictedSales.toFixed(2)}K</td>
                   </tr>
                 ))}
               </tbody>

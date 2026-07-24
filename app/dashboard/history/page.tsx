@@ -157,7 +157,7 @@ export default function HistoryPage() {
                     <td className="px-lg py-md text-on-surface font-semibold">${prediction.newspaper}K</td>
                     <td className="px-lg py-md">
                       <Badge variant="primary" size="md">
-                        ${prediction.predictedSales.toFixed(2)}K
+                        {prediction.predictedSales.toFixed(2)}K
                       </Badge>
                     </td>
                     <td className="px-lg py-md text-on-surface-variant text-label-sm max-w-xs truncate">
@@ -254,7 +254,7 @@ export default function HistoryPage() {
 
               <div className="p-md bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/30 rounded-lg">
                 <p className="text-label-sm text-on-surface-variant mb-sm">Predicted Sales</p>
-                <p className="text-headline-lg font-bold text-primary">${selectedPrediction.predictedSales.toFixed(2)}K</p>
+                <p className="text-headline-lg font-bold text-primary">{selectedPrediction.predictedSales.toFixed(2)}K</p>
               </div>
 
               {selectedPrediction.notes && (
