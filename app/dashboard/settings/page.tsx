@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getCurrentUser, logout } from '@/lib/auth'
+import { getCurrentUser, logout, updateProfile } from '@/lib/auth'
 import { getPredictionStats } from '@/lib/storage'
 import { Button, Input, Card, CardTitle, Alert, Badge, ConfirmModal } from '@/components'
 import type { User } from '@/lib/auth'
@@ -16,6 +16,7 @@ export default function SettingsPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
   const [stats, setStats] = useState({ total: 0, average: 0, highest: 0, lowest: 0 })
 
   useEffect(() => {
@@ -24,21 +25,51 @@ export default function SettingsPage() {
       setUser(currentUser)
       setFullName(currentUser.fullName)
       setEmail(currentUser.email)
+      setAvatarUrl(currentUser.avatarUrl || '')
     }
     setStats(getPredictionStats())
   }, [])
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        setSuccessMessage('Image size must be less than 2MB')
+        setTimeout(() => setSuccessMessage(''), 3000)
+        return
+      }
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        const base64 = event.target?.result as string
+        setAvatarUrl(base64)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleRemoveAvatar = () => {
+    setAvatarUrl('')
+  }
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setSuccessMessage('')
 
-    // Simulate save
-    setTimeout(() => {
-      setSuccessMessage('Profile updated successfully!')
+    try {
+      const result = updateProfile(fullName, avatarUrl || undefined)
+      if (result.success) {
+        setSuccessMessage('Profile updated successfully!')
+        window.dispatchEvent(new Event('user-profile-updated'))
+      } else {
+        setSuccessMessage(result.error || 'Failed to update profile')
+      }
+    } catch (err) {
+      setSuccessMessage('An error occurred while saving profile')
+    } finally {
       setLoading(false)
       setTimeout(() => setSuccessMessage(''), 3000)
-    }, 500)
+    }
   }
 
   const handleLogout = () => {
@@ -81,13 +112,13 @@ export default function SettingsPage() {
 
         <Card padding="lg" className="text-center">
           <p className="text-label-sm text-on-surface-variant mb-md">Average Sales</p>
-          <p className="text-4xl font-bold text-secondary">${stats.average}K</p>
+          <p className="text-4xl font-bold text-secondary">{stats.average}K</p>
           <p className="text-label-sm text-on-surface-variant mt-sm">Across all predictions</p>
         </Card>
 
         <Card padding="lg" className="text-center">
           <p className="text-label-sm text-on-surface-variant mb-md">Best Result</p>
-          <p className="text-4xl font-bold text-tertiary">${stats.highest}K</p>
+          <p className="text-4xl font-bold text-tertiary">{stats.highest}K</p>
           <p className="text-label-sm text-on-surface-variant mt-sm">Highest prediction</p>
         </Card>
 
@@ -108,17 +139,45 @@ export default function SettingsPage() {
           <form onSubmit={handleSaveProfile} className="space-y-lg">
             {/* Avatar */}
             <div className="flex items-center gap-lg mb-lg pb-lg border-b border-outline-variant">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                <span className="text-on-primary font-bold text-2xl">{fullName.charAt(0)}</span>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-on-primary font-bold text-2xl">{fullName.charAt(0).toUpperCase()}</span>
+                )}
               </div>
               <div className="flex-grow">
                 <p className="text-label-md font-semibold text-on-surface mb-sm">Profile Picture</p>
                 <p className="text-body-sm text-on-surface-variant mb-md">
-                  Uses your name initial. Custom pictures coming soon.
+                  Upload a custom profile picture (PNG, JPG).
                 </p>
-                <Button variant="ghost" size="md" disabled>
-                  Upload Photo (Coming Soon)
-                </Button>
+                <div className="flex gap-md">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="md"
+                    onClick={() => document.getElementById('avatar-upload')?.click()}
+                  >
+                    Upload Photo
+                  </Button>
+                  {avatarUrl && (
+                    <Button
+                      type="button"
+                      variant="error"
+                      size="md"
+                      onClick={handleRemoveAvatar}
+                    >
+                      Remove
+                    </Button>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  id="avatar-upload"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleAvatarChange}
+                />
               </div>
             </div>
 

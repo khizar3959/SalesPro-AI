@@ -6,6 +6,7 @@ export interface User {
   email: string
   fullName: string
   createdAt: string
+  avatarUrl?: string
 }
 
 export interface AuthSession {
@@ -108,4 +109,31 @@ export function isAuthenticated(): boolean {
 // Get current user
 export function getCurrentUser(): User | null {
   return getSession().user
+}
+
+// Update user profile (name, avatar)
+export function updateProfile(fullName: string, avatarUrl?: string): { success: boolean; error?: string } {
+  try {
+    const currentUser = getCurrentUser()
+    if (!currentUser) {
+      return { success: false, error: 'No active session' }
+    }
+
+    // 1. Update the session storage
+    const updatedUser = { ...currentUser, fullName, avatarUrl }
+    localStorage.setItem(StorageKeys.CURRENT_USER, JSON.stringify(updatedUser))
+
+    // 2. Update in the users list
+    const users = JSON.parse(localStorage.getItem('users') || '[]')
+    const userIndex = users.findIndex((u: any) => u.id === currentUser.id)
+    if (userIndex !== -1) {
+      users[userIndex].fullName = fullName
+      users[userIndex].avatarUrl = avatarUrl
+      localStorage.setItem('users', JSON.stringify(users))
+    }
+
+    return { success: true }
+  } catch (error) {
+    return { success: false, error: 'Failed to update profile' }
+  }
 }

@@ -28,6 +28,16 @@ export default function DashboardLayout({
 
     const currentUser = getCurrentUser()
     setUser(currentUser)
+
+    const handleProfileUpdate = () => {
+      const updatedUser = getCurrentUser()
+      setUser(updatedUser)
+    }
+
+    window.addEventListener('user-profile-updated', handleProfileUpdate)
+    return () => {
+      window.removeEventListener('user-profile-updated', handleProfileUpdate)
+    }
   }, [router])
 
   if (!mounted || !user) {
@@ -114,8 +124,12 @@ export default function DashboardLayout({
               className="w-full flex items-center gap-md p-md hover:bg-surface-container-high rounded-lg transition-all text-left"
               title={user.fullName}
             >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                <span className="text-on-primary font-bold text-sm">{user.fullName.charAt(0)}</span>
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                {user.avatarUrl ? (
+                  <img src={user.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-on-primary font-bold text-sm">{user.fullName.charAt(0).toUpperCase()}</span>
+                )}
               </div>
               {sidebarOpen && (
                 <div className="flex-grow min-w-0">
