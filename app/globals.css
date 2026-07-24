@@ -67,22 +67,6 @@ body {
   @apply bg-outline-variant rounded-full;
 }
 
-/* Form styling */
-input[type='text'],
-input[type='email'],
-input[type='password'],
-input[type='number'],
-textarea,
-select {
-  @apply bg-surface-container border border-outline-variant rounded-lg px-md py-sm text-on-surface placeholder-on-surface-variant transition-all;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  @apply border-primary outline-none ring-1 ring-primary;
-}
-
 button {
   @apply transition-all duration-200;
 }
